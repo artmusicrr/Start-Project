@@ -1,13 +1,74 @@
+/* Variáveis de tema */
+:root {
+  /* Tema claro (padrão) baseado na paleta personalizada */
+  --bg-primary: #f5f8fa; /* Cor de fundo do body */
+  --bg-secondary: #e8f4ff; /* Cor secundária de fundo */
+  --text-primary: #2E4066; /* Azul Escuro médio (para texto principal) */
+  --text-secondary: #7D4372; /* Roxo escuro (para texto secundário) */
+  --accent-color: #5AB8C5; /* Ciano médio (para detalhes) */
+  --border-color: #A6D7E1; /* Azul Claro médio (para bordas) */
+  --header-bg: #A6D7E1; /* Azul Claro médio (para header) */
+  --card-bg: #F4C7D2; /* Rosa médio (para cards/containers) */
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Tema escuro baseado na paleta personalizada */
+[data-theme="dark"] {
+  --bg-primary: #1A263B; /* Azul Escuro escuro (para fundo) */
+  --bg-secondary: #2E4066; /* Azul Escuro médio (para fundo secundário) */
+  --text-primary: #C4BFD9; /* Lilás claro (para texto principal) */
+  --text-secondary: #A39EC2; /* Lilás médio (para texto secundário) */
+  --accent-color: #5AB8C5; /* Ciano médio (mantido) */
+  --border-color: #5E6B8C; /* Azul Escuro claro (para bordas) */
+  --header-bg: #1A263B; /* Azul Escuro escuro (para header) */
+  --card-bg: #7D4372; /* Roxo escuro (para cards/containers) */
+  --shadow: rgba(0, 0, 0, 0.3);
+}
+
+/* Regras gerais para responsividade */
+html {
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
   margin: 0;
+  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s, color 0.3s;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Media queries base */
+@media (max-width: 1200px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 13px;
+  }
 }
