@@ -2,9 +2,9 @@ import React from 'react';
 import { HomeContainer } from './styled';
 
 const Home: React.FC = () => {
-//   useEffect(() => {
-//     console.log('Página Inicial carregada!');
-//   }, []);
+  //   useEffect(() => {
+  //     console.log('Página Inicial carregada!');
+  //   }, []);
 
   return (
     <HomeContainer>

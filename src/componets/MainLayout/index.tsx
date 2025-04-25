@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
-import { 
-  LayoutContainer, 
-  Header, 
-  Content, 
-  Nav, 
-  NavList, 
+import {
+  LayoutContainer,
+  Header,
+  Content,
+  Nav,
+  NavList,
   NavItem,
   MobileMenuButton,
   MenuIcon,
-  ThemeToggle
+  ThemeToggle,
 } from './styled';
 
 interface MainLayoutProps {
@@ -30,27 +30,32 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         <Nav>
           <MobileMenuButton onClick={toggleMenu} aria-label="Menu">
             <MenuIcon />
-          </MobileMenuButton>          <ThemeToggle 
-            onClick={toggleTheme} 
+          </MobileMenuButton>{' '}
+          <ThemeToggle
+            onClick={toggleTheme}
             isDarkMode={themeMode === 'dark'}
-            aria-label={themeMode === 'dark' ? "Alternar para modo claro" : "Alternar para modo escuro"}
+            aria-label={
+              themeMode === 'dark' ? 'Alternar para modo claro' : 'Alternar para modo escuro'
+            }
           >
-            {themeMode === 'dark' ? "☀️" : "🌙"}
+            {themeMode === 'dark' ? '☀️' : '🌙'}
           </ThemeToggle>
           <NavList open={menuOpen}>
             <NavItem>
-              <Link to="/" onClick={() => setMenuOpen(false)}>Página Inicial</Link>
+              <Link to="/" onClick={() => setMenuOpen(false)}>
+                Página Inicial
+              </Link>
             </NavItem>
             <NavItem>
-              <Link to="/pageone" onClick={() => setMenuOpen(false)}>Página Um</Link>
+              <Link to="/pageone" onClick={() => setMenuOpen(false)}>
+                Página Um
+              </Link>
             </NavItem>
             {/* Adicione mais links aqui conforme necessário */}
           </NavList>
         </Nav>
       </Header>
-      <Content>
-        {children}
-      </Content>
+      <Content>{children}</Content>
     </LayoutContainer>
   );
 };
