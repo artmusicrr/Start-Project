@@ -7,26 +7,32 @@ export const LayoutContainer = styled.div`
 `;
 
 export const Header = styled.header`
-  background-color: ${props => props.theme.isDark 
-    ? props.theme.tokens.colors.primary_new.base.dark 
-    : props.theme.tokens.colors.primary_new.surface.main};
-  color: ${props => props.theme.isDark 
-    ? props.theme.tokens.colors.text.contrast 
-    : props.theme.tokens.colors.text.main};
+  background-color: ${props =>
+    props.theme.isDark
+      ? props.theme.tokens.colors.primary_new.base.dark
+      : props.theme.tokens.colors.primary_new.surface.main};
+  color: ${props =>
+    props.theme.isDark
+      ? props.theme.tokens.colors.text.contrast
+      : props.theme.tokens.colors.text.main};
   padding: 1rem 0;
-  box-shadow: 0 3px 6px ${props => props.theme.isDark 
-    ? 'rgba(0, 0, 0, 0.5)' 
-    : 'rgba(0, 0, 0, 0.15)'};
+  box-shadow: 0 3px 6px
+    ${props => (props.theme.isDark ? 'rgba(0, 0, 0, 0.5)' : 'rgba(0, 0, 0, 0.15)')};
   position: fixed;
   top: 0;
-  border-bottom: 1px solid ${props => props.theme.isDark
-    ? props.theme.tokens.colors.secondary_new.base.main
-    : props.theme.tokens.colors.primary_new.base.main};
+  border-bottom: 1px solid
+    ${props =>
+      props.theme.isDark
+        ? props.theme.tokens.colors.secondary_new.base.main
+        : props.theme.tokens.colors.primary_new.base.main};
   left: 0;
   right: 0;
   width: 100%;
   z-index: 5;
-  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s,
+    box-shadow 0.3s;
 `;
 
 export const Nav = styled.nav`
@@ -53,22 +59,26 @@ export const ThemeToggle = styled.button<{ isDarkMode: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${props => props.isDarkMode 
-    ? props.theme.tokens.colors.text.contrast 
-    : props.theme.tokens.colors.text.main};  background-color: ${props => props.isDarkMode 
-    ? props.theme.tokens.colors.secondary_new.base.main 
-    : props.theme.tokens.colors.terciary[100]};
-  transition: background-color 0.3s, color 0.3s;
-  box-shadow: 0 2px 4px ${props => props.isDarkMode 
-    ? 'rgba(0, 0, 0, 0.3)' 
-    : 'rgba(0, 0, 0, 0.1)'};
-  
+  color: ${props =>
+    props.isDarkMode
+      ? props.theme.tokens.colors.text.contrast
+      : props.theme.tokens.colors.text.main};
+  background-color: ${props =>
+    props.isDarkMode
+      ? props.theme.tokens.colors.secondary_new.base.main
+      : props.theme.tokens.colors.terciary[100]};
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+  box-shadow: 0 2px 4px ${props => (props.isDarkMode ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.1)')};
+
   &:hover {
-    background-color: ${props => props.isDarkMode 
-      ? props.theme.tokens.colors.secondary_new.action.hover 
-      : props.theme.tokens.colors.terciary[90]};
+    background-color: ${props =>
+      props.isDarkMode
+        ? props.theme.tokens.colors.secondary_new.action.hover
+        : props.theme.tokens.colors.terciary[90]};
   }
-  
+
   @media (max-width: 768px) {
     right: 70px;
   }
@@ -79,8 +89,9 @@ export const MenuIcon = styled.div`
   height: 3px;
   background-color: #333;
   position: relative;
-  
-  &:before, &:after {
+
+  &:before,
+  &:after {
     content: '';
     position: absolute;
     width: 24px;
@@ -88,11 +99,11 @@ export const MenuIcon = styled.div`
     background-color: #333;
     transition: transform 0.3s ease;
   }
-  
+
   &:before {
     top: -8px;
   }
-  
+
   &:after {
     bottom: -8px;
   }
@@ -105,7 +116,7 @@ export const MobileMenuButton = styled.button`
   cursor: pointer;
   padding: 10px;
   z-index: 2;
-  
+
   @media (max-width: 768px) {
     display: block;
   }
@@ -117,52 +128,58 @@ export const NavList = styled.ul<{ open?: boolean }>`
   margin: 0;
   padding: 0;
   gap: 20px;
-  
+
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 10px;
     position: fixed;
     top: 0;
-    right: ${({ open }) => open ? '0' : '-100%'};
+    right: ${({ open }) => (open ? '0' : '-100%')};
     width: 250px;
     background-color: ${props => props.theme.colors.headerBg};
     padding: 60px 20px 20px;
     height: 100vh;
     z-index: 10;
-    box-shadow: -2px 0 5px ${props => props.theme.isDark ? 'rgba(0, 0, 0, 0.5)' : 'rgba(0, 0, 0, 0.1)'};
-    transition: right 0.3s ease, background-color 0.3s;
+    box-shadow: -2px 0 5px
+      ${props => (props.theme.isDark ? 'rgba(0, 0, 0, 0.5)' : 'rgba(0, 0, 0, 0.1)')};
+    transition:
+      right 0.3s ease,
+      background-color 0.3s;
     overflow-y: auto;
   }
 `;
 
 export const NavItem = styled.li`
   a {
-    color: ${props => props.theme.isDark ? '#e0e0e0' : '#333'};
+    color: ${props => (props.theme.isDark ? '#e0e0e0' : '#333')};
     text-decoration: none;
     font-weight: 500;
     padding: 8px 0;
     position: relative;
     display: block;
-    
+
     &:hover {
       //color: ${props => props.theme.colors.primary};
-      color:  ${props => props.theme.isDark
-        ? props.theme.tokens.colors.text.terciary
-        : props.theme.tokens.colors.text.secondary};
-      
+      color: ${props =>
+        props.theme.isDark
+          ? props.theme.tokens.colors.text.terciary
+          : props.theme.tokens.colors.text.secondary};
+
       &:after {
         width: 100%;
       }
-    }      &:after {
+    }
+    &:after {
       content: '';
       position: absolute;
       left: 0;
       bottom: 0;
       width: 0;
       height: 2px;
-      background-color: ${props => props.theme.isDark
-        ? props.theme.tokens.colors.text.terciary
-        : props.theme.tokens.colors.text.secondary};
+      background-color: ${props =>
+        props.theme.isDark
+          ? props.theme.tokens.colors.text.terciary
+          : props.theme.tokens.colors.text.secondary};
       transition: width 0.3s ease;
     }
   }
@@ -175,12 +192,12 @@ export const Content = styled.main`
   width: 100%;
   margin: 0 auto;
   margin-top: 80px; /* Compensar a altura do header fixo */
-  
+
   @media (max-width: 768px) {
     padding: 1.5rem 0.75rem;
     margin-top: 70px; /* Ajuste para telas menores */
   }
-  
+
   @media (max-width: 480px) {
     padding: 1rem 0.5rem;
     margin-top: 60px; /* Ajuste para telas muito pequenas */

@@ -1,4 +1,4 @@
-import { themeCommons } from "../themes/commons";
+import { themeCommons } from '../themes/commons';
 
 export interface IPropsTheme {
   tokens: {
