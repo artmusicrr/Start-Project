@@ -51,6 +51,12 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                 Página Um
               </Link>
             </NavItem>
+            <NavItem>
+              <Link to="/pagetwo" onClick={() => setMenuOpen(false)}>
+                Página Dois
+              </Link>
+            </NavItem>
+
             {/* Adicione mais links aqui conforme necessário */}
           </NavList>
         </Nav>
