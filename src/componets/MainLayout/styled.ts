@@ -187,7 +187,7 @@ export const NavItem = styled.li`
 
 export const Content = styled.main`
   flex: 1;
-  padding: 2rem 1rem;
+  //padding: 2rem 1rem;
   max-width: 1300px;
   width: 100%;
   margin: 0 auto;
