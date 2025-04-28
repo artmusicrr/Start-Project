@@ -66,7 +66,7 @@ export const ThemeToggle = styled.button<{ isDarkMode: boolean }>`
   background-color: ${props =>
     props.isDarkMode
       ? props.theme.tokens.colors.secondary_new.base.main
-      : props.theme.tokens.colors.terciary[100]};
+      : props.theme.tokens.colors.terciary[70]};
   transition:
     background-color 0.3s,
     color 0.3s;
