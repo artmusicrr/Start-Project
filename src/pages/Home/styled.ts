@@ -92,6 +92,7 @@ export const WeatherCardsList = styled.ul`
 interface WeatherCardProps {
   weatherId?: number;
   isNight?: boolean;
+  onClick?: () => void;
 }
 
 export const WeatherCard = styled.li<WeatherCardProps>`
@@ -192,26 +193,21 @@ export const WeatherCard = styled.li<WeatherCardProps>`
 `;
 
 export const WeatherIcon = styled.div`
-  font-size: 2.5rem;
   margin-bottom: 15px;
   width: 80px;
   height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
-  svg {
-    transform: scale(1.1);
-    filter: saturate(1.2);
-    will-change: transform, filter, color;
-    transition:
-      transform 0.3s ease,
-      filter 0.3s ease,
-      color 0.3s ease;
+
+  img {
+    transform: scale(1);
+    will-change: transform;
+    transition: transform 0.3s ease;
   }
 
-  &:hover svg {
-    transform: scale(1.2);
-    filter: saturate(1.4);
+  &:hover img {
+    transform: scale(1.1);
   }
 `;
 
@@ -244,48 +240,10 @@ export const WeatherInfo = styled.div<WeatherInfoProps>`
     .temp {
       font-size: 1.6rem;
       font-weight: bold;
-      background: ${props => {
-        const weatherId = props.weatherId || 0;
-        const isNight = props.isNight || false;
-        const isDark = props.theme.isDark;
-
-        // Gradientes baseados no tipo de clima
-        if (weatherId >= 200 && weatherId < 300) {
-          // Tempestade - roxo para lilás
-          return isDark
-            ? 'linear-gradient(45deg, #8e44ad, #9b59b6)'
-            : 'linear-gradient(45deg, #8e44ad, #9b59b6)';
-        } else if (weatherId >= 300 && weatherId < 600) {
-          // Chuva - azul escuro para azul claro
-          return isDark
-            ? 'linear-gradient(45deg, #2980b9, #3498db)'
-            : 'linear-gradient(45deg, #2980b9, #3498db)';
-        } else if (weatherId >= 600 && weatherId < 700) {
-          // Neve - azul claro para branco
-          return isDark
-            ? 'linear-gradient(45deg, #a5b1c2, #d1d8e0)'
-            : 'linear-gradient(45deg, #a5b1c2, #d1d8e0)';
-        } else if (weatherId >= 700 && weatherId < 800) {
-          // Névoa - cinza claro para quase branco
-          return isDark
-            ? 'linear-gradient(45deg, #7f8c8d, #95a5a6)'
-            : 'linear-gradient(45deg, #7f8c8d, #95a5a6)';
-        } else if (weatherId === 800) {
-          // Céu limpo
-          return isNight
-            ? isDark // Noite - azul escuro para azul claro
-              ? 'linear-gradient(45deg, #2c3e50, #34495e)'
-              : 'linear-gradient(45deg, #2c3e50, #34495e)'
-            : isDark // Dia - amarelo para laranja
-              ? 'linear-gradient(45deg, #f39c12, #f1c40f)'
-              : 'linear-gradient(45deg, #f39c12, #f1c40f)';
-        }
-
-        // Nublado (default) - cinza para azul acinzentado
-        return isDark
+      background: ${props =>
+        props.theme.isDark
           ? 'linear-gradient(45deg, #76b0e3, #81c7f5)'
-          : 'linear-gradient(45deg, #2d6cdf, #4f95eb)';
-      }};
+          : 'linear-gradient(45deg, #2d6cdf, #4f95eb)'};
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
