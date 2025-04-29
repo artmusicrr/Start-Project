@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { HomeContainer, WeatherCardsList, WeatherCard, WeatherIcon, WeatherInfo } from './styled';
 import { Icon } from '@iconify/react';
+import WeatherDetailModal from '../../components/ui/WeatherDetailModal';
+import OpenWeatherMapIcon from '../../components/ui/OpenWeatherMapIcon';
 
 interface WeatherItem {
   dt: number;
   dt_txt: string;
   main: {
     temp: number;
+    feels_like: number;
+    temp_min: number;
+    temp_max: number;
+    pressure: number;
+    humidity: number;
   };
   weather: {
     id: number;
@@ -14,6 +21,16 @@ interface WeatherItem {
     description: string;
     icon: string;
   }[];
+  clouds: {
+    all: number;
+  };
+  wind: {
+    speed: number;
+    deg: number;
+    gust?: number;
+  };
+  visibility: number;
+  pop: number; // Probabilidade de precipitação
 }
 
 interface WeatherData {
@@ -27,182 +44,8 @@ const Home: React.FC = () => {
   const [location, setLocation] = useState<{ lat: number; lon: number } | null>(null);
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [error, setError] = useState<string | null>(null);
-
-  // Função para determinar qual ícone exibir baseado no ID do tempo
-  const getWeatherIcon = (weatherId: number, icon: string): JSX.Element => {
-    // Verifica se é dia ou noite pelo código do ícone
-    const isNight = icon.includes('n');
-
-    // Cores temáticas para cada tipo de clima
-    const iconColors = {
-      thunderstorm: '#9B59B6', // Roxo para tempestade
-      shower: '#3498DB', // Azul claro para chuviscos
-      rain: '#2E86C1', // Azul médio para chuva
-      snow: '#ECF0F1', // Branco para neve
-      fog: '#BDC3C7', // Cinza claro para névoa
-      sunny: '#F39C12', // Amarelo/dourado para sol
-      moon: '#F5F5F5', // Branco azulado para lua
-      cloud: '#95A5A6', // Cinza para nuvens
-      partCloud: '#7F8C8D', // Cinza mais escuro para parcialmente nublado
-      default: '#3498DB', // Azul padrão
-    };
-
-    // Estilos para adicionar brilho aos ícones baseados no tipo de clima
-    const getIconStyle = (colorKey: keyof typeof iconColors) => {
-      // Cores de brilho específicas para cada tipo
-      const glowColors = {
-        sunny: 'rgba(243, 156, 18, 0.8)', // Brilho mais intenso para o sol
-        thunderstorm: 'rgba(155, 89, 182, 0.8)', // Brilho intenso para tempestade
-        rain: 'rgba(41, 128, 185, 0.7)', // Brilho médio para chuva
-        snow: 'rgba(236, 240, 241, 0.7)', // Brilho médio para neve
-        cloud: 'rgba(149, 165, 166, 0.5)', // Brilho suave para nuvens
-        moon: 'rgba(245, 245, 245, 0.6)', // Brilho moderado para lua
-        default: 'rgba(52, 152, 219, 0.5)',
-      };
-
-      // Intensidade do brilho baseada no tipo de clima
-      const glowIntensity = {
-        sunny: '12px', // Sol tem brilho mais intenso
-        thunderstorm: '10px', // Tempestade tem brilho forte
-        rain: '8px', // Chuva tem brilho médio
-        snow: '8px', // Neve tem brilho médio
-        cloud: '5px', // Nuvens têm brilho suave
-        moon: '8px', // Lua tem brilho moderado
-        default: '6px',
-      };
-
-      // Determina a cor do brilho baseado no tipo de clima
-      let glowColor, blurSize;
-      if (
-        colorKey === 'sunny' ||
-        colorKey === 'thunderstorm' ||
-        colorKey === 'rain' ||
-        colorKey === 'snow' ||
-        colorKey === 'cloud' ||
-        colorKey === 'moon'
-      ) {
-        glowColor = glowColors[colorKey];
-        blurSize = glowIntensity[colorKey];
-      } else {
-        glowColor = glowColors.default;
-        blurSize = glowIntensity.default;
-      }
-
-      return {
-        filter: `drop-shadow(0 0 ${blurSize} ${glowColor})`,
-        transition: 'all 0.3s ease',
-      };
-    };
-
-    // Com base no ID e se é dia ou noite
-    if (weatherId >= 200 && weatherId < 300) {
-      return (
-        <Icon
-          icon="wi:thunderstorm"
-          width="64"
-          height="64"
-          color={iconColors.thunderstorm}
-          style={getIconStyle('thunderstorm')}
-        />
-      );
-    } else if (weatherId >= 300 && weatherId < 400) {
-      return (
-        <Icon
-          icon="wi:showers"
-          width="64"
-          height="64"
-          color={iconColors.shower}
-          style={getIconStyle('shower')}
-        />
-      );
-    } else if (weatherId >= 500 && weatherId < 600) {
-      return (
-        <Icon
-          icon="wi:rain"
-          width="64"
-          height="64"
-          color={iconColors.rain}
-          style={getIconStyle('rain')}
-        />
-      );
-    } else if (weatherId >= 600 && weatherId < 700) {
-      return (
-        <Icon
-          icon="wi:snow"
-          width="64"
-          height="64"
-          color={iconColors.snow}
-          style={getIconStyle('snow')}
-        />
-      );
-    } else if (weatherId >= 700 && weatherId < 800) {
-      return (
-        <Icon
-          icon="wi:fog"
-          width="64"
-          height="64"
-          color={iconColors.fog}
-          style={getIconStyle('default')}
-        />
-      );
-    } else if (weatherId === 800) {
-      return isNight ? (
-        <Icon
-          icon="wi:night-clear"
-          width="64"
-          height="64"
-          color={iconColors.moon}
-          style={getIconStyle('moon')}
-        />
-      ) : (
-        <Icon
-          icon="wi:day-sunny"
-          width="64"
-          height="64"
-          color={iconColors.sunny}
-          style={getIconStyle('sunny')}
-        />
-      );
-    } else if (weatherId === 801) {
-      return isNight ? (
-        <Icon
-          icon="wi:night-alt-cloudy"
-          width="64"
-          height="64"
-          color={iconColors.moon}
-          style={getIconStyle('moon')}
-        />
-      ) : (
-        <Icon
-          icon="wi:day-cloudy"
-          width="64"
-          height="64"
-          color={iconColors.partCloud}
-          style={getIconStyle('cloud')}
-        />
-      );
-    } else if (weatherId > 801 && weatherId < 900) {
-      return (
-        <Icon
-          icon="wi:cloudy"
-          width="64"
-          height="64"
-          color={iconColors.cloud}
-          style={getIconStyle('cloud')}
-        />
-      );
-    } else {
-      return (
-        <Icon
-          icon="wi:cloud"
-          width="64"
-          height="64"
-          color={iconColors.cloud}
-          style={getIconStyle('cloud')}
-        />
-      ); // Fallback
-    }
-  };
+  const [selectedWeather, setSelectedWeather] = useState<WeatherItem | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const getLocationFromIP = async () => {
     try {
@@ -216,6 +59,17 @@ const Home: React.FC = () => {
     } catch {
       setError('Erro ao consultar localização aproximada via IP.');
     }
+  };
+
+  // Função para abrir o modal com os detalhes da previsão
+  const handleCardClick = (item: WeatherItem) => {
+    setSelectedWeather(item);
+    setIsModalOpen(true);
+  };
+
+  // Função para fechar o modal
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   useEffect(() => {
@@ -314,14 +168,17 @@ const Home: React.FC = () => {
                   key={item.dt}
                   weatherId={item.weather[0].id}
                   isNight={item.weather[0].icon.includes('n')}
+                  onClick={() => handleCardClick(item)}
+                  style={{ cursor: 'pointer' }}
                 >
                   <WeatherIcon>
-                    {getWeatherIcon(item.weather[0].id, item.weather[0].icon)}
+                    <OpenWeatherMapIcon
+                      weatherId={item.weather[0].id}
+                      iconCode={item.weather[0].icon}
+                      size={80}
+                    />
                   </WeatherIcon>
-                  <WeatherInfo
-                    weatherId={item.weather[0].id}
-                    isNight={item.weather[0].icon.includes('n')}
-                  >
+                  <WeatherInfo>
                     <div className="day">
                       <div style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '3px' }}>
                         {new Date(item.dt_txt)
@@ -345,6 +202,13 @@ const Home: React.FC = () => {
           </WeatherCardsList>
         </>
       )}
+
+      {/* Modal de Detalhes do Tempo */}
+      <WeatherDetailModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        weatherData={selectedWeather}
+      />
     </HomeContainer>
   );
 };
