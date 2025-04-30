@@ -5,128 +5,128 @@ export const dark: IPropsTheme = {
   tokens: {
     colors: {
       text: {
-        main: '#E8E8F0',
-        terciary: '#A3B1E1',
-        secondary: '#B0B0C0',
-        disabled: '#787890',
-        contrast: '#1A1A1A',
+        main: '#DDE4F0', // Um cinza-azulado claro, suave para os olhos
+        terciary: '#A8B5E0', // Azul-roxo claro para elementos terciários
+        secondary: '#B8C2E0', // Tom secundário mais claro e harmonioso
+        disabled: '#6A748F', // Cinza-azulado mais escuro para desabilitados
+        contrast: '#1F2633', // Fundo escuro para contraste
       },
       primary_new: {
         base: {
-          main: '#1E2A44',
-          dark: '#1A1A1A',
-          ligth: '#3B4A7A',
-          contrast: '#FFFFFF',
+          main: '#2A3249', // Azul escuro suave
+          dark: '#1F2633', // Tom mais escuro para profundidade
+          ligth: '#4A567A', // Tom mais claro para variação
+          contrast: '#DDE4F0', // Texto claro para contraste
         },
         action: {
-          main: '#1E2A44',
-          hover: '#3B4A7A',
-          pressable: '#2A3555',
-          disabled: '#787890',
+          main: '#2A3249',
+          hover: '#4A567A',
+          pressable: '#1F2633',
+          disabled: '#6A748F',
         },
         surface: {
-          main: '#3B4A7A',
-          hover: '#6A7DB8',
-          pressable: '#2A3555',
-          disabled: '#787890',
+          main: '#3E465F', // Tom de superfície mais claro que o fundo
+          hover: '#5A6688',
+          pressable: '#2A3249',
+          disabled: '#6A748F',
         },
       },
       secondary_new: {
         base: {
-          main: '#5A2A3F',
-          dark: '#3F1F2D',
-          ligth: '#8C4A66',
-          contrast: '#E8B7C9',
+          main: '#483A5A', // Roxo escuro suave
+          dark: '#322640',
+          ligth: '#6A5A82',
+          contrast: '#D4CCE8', // Contraste claro para o roxo
         },
         action: {
-          main: '#5A2A3F',
-          hover: '#8C4A66',
-          pressable: '#3F1F2D',
-          disabled: '#787890',
+          main: '#483A5A',
+          hover: '#6A5A82',
+          pressable: '#322640',
+          disabled: '#6A748F',
         },
         surface: {
-          main: '#8C4A66',
-          hover: '#C17B9A',
-          pressable: '#5A2A3F',
-          disabled: '#B0B0C0',
+          main: '#6A5A82',
+          hover: '#8E7AA6',
+          pressable: '#483A5A',
+          disabled: '#B8C2E0',
         },
       },
       primary: {
-        100: '#1E2A44',
-        90: '#3B4A7A',
-        80: '#6A7DB8',
-        70: '#A3B1E1',
+        100: '#2A3249',
+        90: '#4A567A',
+        80: '#6E7A9C',
+        70: '#A8B5E0',
       },
       secondary: {
-        100: '#FFFFFF',
-        90: '#C17B9A',
-        80: '#8C4A66',
+        100: '#DDE4F0',
+        90: '#8E7AA6',
+        80: '#6A5A82',
       },
       terciary: {
-        100: '#A3B1E1',
-        90: '#6A7DB8',
-        80: '#3B4A7A',
-        70: '#2A3555',
+        100: '#A8B5E0',
+        90: '#6E7A9C',
+        80: '#4A567A',
+        70: '#2A3249',
       },
       feedback: {
         success: {
           base: {
-            main: '#388E3C',
-            dark: '#26632A',
-            ligth: '#81C784',
-            contrast: '#1A1A1A',
+            main: '#3B8A5A', // Verde escuro suave
+            dark: '#2A6140',
+            ligth: '#70B38A',
+            contrast: '#1F2633',
           },
           action: {
-            main: '#388E3C',
-            hover: '#4FA053',
-            pressable: '#26632A',
-            disabled: '#787890',
+            main: '#3B8A5A',
+            hover: '#4FA66F',
+            pressable: '#2A6140',
+            disabled: '#6A748F',
           },
           surface: {
-            main: '#3B4A7A',
-            hover: '#6A7DB8',
-            pressable: '#2A3555',
-            disabled: '#B0B0C0',
+            main: '#3E465F',
+            hover: '#5A6688',
+            pressable: '#2A3249',
+            disabled: '#B8C2E0',
           },
         },
         warning: {
           base: {
-            main: '#EF6C00',
-            dark: '#B35200',
-            ligth: '#FFB300',
-            contrast: '#1A1A1A',
+            main: '#D97706', // Laranja escuro suave
+            dark: '#A65E04',
+            ligth: '#F4A261',
+            contrast: '#1F2633',
           },
           action: {
-            main: '#EF6C00',
-            hover: '#FF8C33',
-            pressable: '#B35200',
-            disabled: '#787890',
+            main: '#D97706',
+            hover: '#E68A1F',
+            pressable: '#A65E04',
+            disabled: '#6A748F',
           },
           surface: {
-            main: '#8C4A66',
-            hover: '#C17B9A',
-            pressable: '#5A2A3F',
-            disabled: '#B0B0C0',
+            main: '#6A5A82',
+            hover: '#8E7AA6',
+            pressable: '#483A5A',
+            disabled: '#B8C2E0',
           },
         },
         error: {
           base: {
-            main: '#C62828',
-            dark: '#8B1C1C',
-            ligth: '#E57373',
-            contrast: '#1A1A1A',
+            main: '#B34747', // Vermelho escuro suave
+            dark: '#8A3232',
+            ligth: '#D47B7B',
+            contrast: '#1F2633',
           },
           action: {
-            main: '#C62828',
-            hover: '#D94141',
-            pressable: '#8B1C1C',
-            disabled: '#787890',
+            main: '#B34747',
+            hover: '#C45C5C',
+            pressable: '#8A3232',
+            disabled: '#6A748F',
           },
           surface: {
-            main: '#8C4A66',
-            hover: '#C17B9A',
-            pressable: '#5A2A3F',
-            disabled: '#B0B0C0',
+            main: '#6A5A82',
+            hover: '#8E7AA6',
+            pressable: '#483A5A',
+            disabled: '#B8C2E0',
           },
         },
       },
@@ -134,27 +134,27 @@ export const dark: IPropsTheme = {
     commons: { ...themeCommons },
   },
   colors: {
-    primary: '#1E2A44',
-    secondary: '#5A2A3F',
-    terciary: '#A3B1E1',
-    success: '#388E3C',
-    success_light: '#81C784',
-    warning: '#EF6C00',
-    attention: '#C62828',
-    orange: '#B35200',
-    orange_transparent: '#FFB300',
-    text: '#E8E8F0',
-    blue_dark: '#1E2A44',
-    bluish_gray: '#6A7DB8',
-    gray_light: '#B0B0C0',
-    gray_dark: '#787890',
-    ice: '#A3B1E1',
-    ice_dark: '#C17B9A',
-    gray: '#787890',
-    light: '#FFFFFF',
-    headerBg: '#1E2A44' /* Azul escuro para o cabeçalho no tema escuro */,
-    containerBg: '#323659' /* Azul mais escuro do que o header para os containers */,
-    background: '#141928' /* Azul muito escuro para o fundo da página */,
+    primary: '#2A3249',
+    secondary: '#483A5A',
+    terciary: '#A8B5E0',
+    success: '#3B8A5A',
+    success_light: '#70B38A',
+    warning: '#D97706',
+    attention: '#B34747',
+    orange: '#A65E04',
+    orange_transparent: '#F4A261',
+    text: '#DDE4F0',
+    blue_dark: '#1F2633',
+    bluish_gray: '#6E7A9C',
+    gray_light: '#B8C2E0',
+    gray_dark: '#6A748F',
+    ice: '#A8B5E0',
+    ice_dark: '#8E7AA6',
+    gray: '#6A748F',
+    light: '#DDE4F0',
+    headerBg: '#2A3249', // Azul escuro suave para o cabeçalho
+    containerBg: '#3E465F', // Um tom mais claro para os containers
+    background: '#1F2633', // Fundo escuro, mas não tão próximo do preto
   },
   devices: {
     mobile: {

@@ -1,0 +1,8 @@
+/* Dark mode overrides for Home Page */
+body[data-theme="dark"] .HomeContainer h1 {
+  color: #DDE4F0;
+}
+
+body[data-theme="dark"] .WeatherInfo .day {
+  color: #DDE4F0;
+}

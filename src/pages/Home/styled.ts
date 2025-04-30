@@ -26,9 +26,7 @@ export const HomeContainer = styled.div`
     margin-bottom: 2rem;
     font-size: 2.8rem;
     color: ${props =>
-      props.theme.isDark
-        ? props.theme.tokens.colors.secondary_new.base.main
-        : props.theme.tokens.colors.primary_new.base.main};
+      props.theme.isDark ? '#DDE4F0' : props.theme.tokens.colors.primary_new.base.main};
     font-weight: bold;
     text-shadow: ${props =>
       props.theme.isDark
@@ -102,6 +100,7 @@ export const WeatherCard = styled.li<WeatherCardProps>`
   padding: 20px 15px;
   border-radius: 18px;
   width: 180px;
+  min-height: 240px;
   background-color: ${props => {
     const isDark = props.theme.isDark;
     const weatherId = props.weatherId || 0;
@@ -223,19 +222,19 @@ export const WeatherInfo = styled.div<WeatherInfoProps>`
   .day {
     font-size: 1.2rem;
     font-weight: bold;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     text-transform: capitalize;
     color: ${props =>
-      props.theme.isDark
-        ? props.theme.tokens.colors.secondary_new.base.main
-        : props.theme.tokens.colors.primary_new.base.dark};
+      props.theme.isDark ? '#DDE4F0' : props.theme.tokens.colors.primary_new.base.dark};
     letter-spacing: 0.5px;
+    text-align: center;
   }
 
   .description {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    gap: 8px;
 
     .temp {
       font-size: 1.6rem;
@@ -263,6 +262,9 @@ export const WeatherInfo = styled.div<WeatherInfoProps>`
       text-transform: capitalize;
       padding: 4px 10px;
       border-radius: 20px;
+      text-align: center;
+      width: 100%;
+      margin-top: 2px;
       background-color: ${props => {
         const weatherId = props.weatherId || 0;
         const isNight = props.isNight || false;

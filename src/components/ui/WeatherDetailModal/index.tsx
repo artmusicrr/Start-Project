@@ -7,6 +7,8 @@ import {
   WeatherIconContainer,
   WeatherLabel,
   WeatherValue,
+  WeatherDetailSection,
+  SectionTitle,
 } from './styled';
 import { Icon } from '@iconify/react';
 
@@ -95,95 +97,108 @@ const WeatherDetailModal: React.FC<WeatherDetailModalProps> = ({
           <p>{weatherData.weather[0].description}</p>
         </WeatherIconContainer>
 
-        <WeatherDetailGrid>
-          <WeatherDetailItem>
-            <WeatherLabel>
-              <Icon icon="mdi:thermometer" width="20" height="20" /> Temperatura:
-            </WeatherLabel>
-            <WeatherValue>{weatherData.main.temp.toFixed(1)}°C</WeatherValue>
-          </WeatherDetailItem>
-
-          <WeatherDetailItem>
-            <WeatherLabel>
-              <Icon icon="mdi:thermometer-lines" width="20" height="20" /> Sensação Térmica:
-            </WeatherLabel>
-            <WeatherValue>{weatherData.main.feels_like.toFixed(1)}°C</WeatherValue>
-          </WeatherDetailItem>
-
-          <WeatherDetailItem>
-            <WeatherLabel>
-              <Icon icon="mdi:arrow-down-thin" width="20" height="20" /> Temperatura Mínima:
-            </WeatherLabel>
-            <WeatherValue>{weatherData.main.temp_min.toFixed(1)}°C</WeatherValue>
-          </WeatherDetailItem>
-
-          <WeatherDetailItem>
-            <WeatherLabel>
-              <Icon icon="mdi:arrow-up-thin" width="20" height="20" /> Temperatura Máxima:
-            </WeatherLabel>
-            <WeatherValue>{weatherData.main.temp_max.toFixed(1)}°C</WeatherValue>
-          </WeatherDetailItem>
-
-          <WeatherDetailItem>
-            <WeatherLabel>
-              <Icon icon="mdi:water-percent" width="20" height="20" /> Umidade:
-            </WeatherLabel>
-            <WeatherValue>{weatherData.main.humidity}%</WeatherValue>
-          </WeatherDetailItem>
-
-          <WeatherDetailItem>
-            <WeatherLabel>
-              <Icon icon="mdi:gauge" width="20" height="20" /> Pressão:
-            </WeatherLabel>
-            <WeatherValue>{weatherData.main.pressure} hPa</WeatherValue>
-          </WeatherDetailItem>
-
-          <WeatherDetailItem>
-            <WeatherLabel>
-              <Icon icon="mdi:cloud-percent" width="20" height="20" /> Cobertura de Nuvens:
-            </WeatherLabel>
-            <WeatherValue>{weatherData.clouds.all}%</WeatherValue>
-          </WeatherDetailItem>
-
-          <WeatherDetailItem>
-            <WeatherLabel>
-              <Icon icon="mdi:weather-windy" width="20" height="20" /> Velocidade do Vento:
-            </WeatherLabel>
-            <WeatherValue>{weatherData.wind.speed} m/s</WeatherValue>
-          </WeatherDetailItem>
-
-          <WeatherDetailItem>
-            <WeatherLabel>
-              <Icon icon="mdi:compass" width="20" height="20" /> Direção do Vento:
-            </WeatherLabel>
-            <WeatherValue>
-              {weatherData.wind.deg}° ({getWindDirection(weatherData.wind.deg)})
-            </WeatherValue>
-          </WeatherDetailItem>
-
-          {weatherData.wind.gust && (
+        <WeatherDetailSection>
+          <SectionTitle>Temperatura</SectionTitle>
+          <WeatherDetailGrid>
             <WeatherDetailItem>
               <WeatherLabel>
-                <Icon icon="mdi:weather-windy-variant" width="20" height="20" /> Rajadas de Vento:
+                <Icon icon="mdi:thermometer" width="20" height="20" /> Atual
               </WeatherLabel>
-              <WeatherValue>{weatherData.wind.gust} m/s</WeatherValue>
+              <WeatherValue>{weatherData.main.temp.toFixed(1)}°C</WeatherValue>
             </WeatherDetailItem>
-          )}
 
-          <WeatherDetailItem>
-            <WeatherLabel>
-              <Icon icon="mdi:eye" width="20" height="20" /> Visibilidade:
-            </WeatherLabel>
-            <WeatherValue>{weatherData.visibility / 1000} km</WeatherValue>
-          </WeatherDetailItem>
+            <WeatherDetailItem>
+              <WeatherLabel>
+                <Icon icon="mdi:thermometer-lines" width="20" height="20" /> Sensação Térmica
+              </WeatherLabel>
+              <WeatherValue>{weatherData.main.feels_like.toFixed(1)}°C</WeatherValue>
+            </WeatherDetailItem>
 
-          <WeatherDetailItem>
-            <WeatherLabel>
-              <Icon icon="mdi:weather-pouring" width="20" height="20" /> Probabilidade de Chuva:
-            </WeatherLabel>
-            <WeatherValue>{formatRainProbability(weatherData.pop)}</WeatherValue>
-          </WeatherDetailItem>
-        </WeatherDetailGrid>
+            <WeatherDetailItem>
+              <WeatherLabel>
+                <Icon icon="mdi:thermometer-low" width="20" height="20" /> Mínima/Máxima
+              </WeatherLabel>
+              <WeatherValue>
+                {weatherData.main.temp_min.toFixed(1)}°C / {weatherData.main.temp_max.toFixed(1)}°C
+              </WeatherValue>
+            </WeatherDetailItem>
+          </WeatherDetailGrid>
+        </WeatherDetailSection>
+
+        <WeatherDetailSection>
+          <SectionTitle>Condições Atmosféricas</SectionTitle>
+          <WeatherDetailGrid>
+            <WeatherDetailItem>
+              <WeatherLabel>
+                <Icon icon="mdi:water-percent" width="20" height="20" /> Umidade
+              </WeatherLabel>
+              <WeatherValue>{weatherData.main.humidity}%</WeatherValue>
+            </WeatherDetailItem>
+
+            <WeatherDetailItem>
+              <WeatherLabel>
+                <Icon icon="mdi:gauge" width="20" height="20" /> Pressão
+              </WeatherLabel>
+              <WeatherValue>{weatherData.main.pressure} hPa</WeatherValue>
+            </WeatherDetailItem>
+
+            <WeatherDetailItem>
+              <WeatherLabel>
+                <Icon icon="mdi:cloud-percent" width="20" height="20" /> Cobertura de Nuvens
+              </WeatherLabel>
+              <WeatherValue>{weatherData.clouds.all}%</WeatherValue>
+            </WeatherDetailItem>
+          </WeatherDetailGrid>
+        </WeatherDetailSection>
+
+        <WeatherDetailSection>
+          <SectionTitle>Vento e Visibilidade</SectionTitle>
+          <WeatherDetailGrid>
+            <WeatherDetailItem>
+              <WeatherLabel>
+                <Icon icon="mdi:weather-windy" width="20" height="20" /> Velocidade
+              </WeatherLabel>
+              <WeatherValue>{weatherData.wind.speed} m/s</WeatherValue>
+            </WeatherDetailItem>
+
+            <WeatherDetailItem>
+              <WeatherLabel>
+                <Icon icon="mdi:compass" width="20" height="20" /> Direção
+              </WeatherLabel>
+              <WeatherValue>
+                {weatherData.wind.deg}° ({getWindDirection(weatherData.wind.deg)})
+              </WeatherValue>
+            </WeatherDetailItem>
+
+            {weatherData.wind.gust ? (
+              <WeatherDetailItem>
+                <WeatherLabel>
+                  <Icon icon="mdi:weather-windy-variant" width="20" height="20" /> Rajadas
+                </WeatherLabel>
+                <WeatherValue>{weatherData.wind.gust} m/s</WeatherValue>
+              </WeatherDetailItem>
+            ) : (
+              <WeatherDetailItem>
+                <WeatherLabel>
+                  <Icon icon="mdi:eye" width="20" height="20" /> Visibilidade
+                </WeatherLabel>
+                <WeatherValue>{weatherData.visibility / 1000} km</WeatherValue>
+              </WeatherDetailItem>
+            )}
+          </WeatherDetailGrid>
+        </WeatherDetailSection>
+
+        <WeatherDetailSection>
+          <SectionTitle>Precipitação</SectionTitle>
+          <WeatherDetailGrid>
+            <WeatherDetailItem>
+              <WeatherLabel>
+                <Icon icon="mdi:weather-pouring" width="20" height="20" /> Probabilidade de Chuva
+              </WeatherLabel>
+              <WeatherValue>{formatRainProbability(weatherData.pop)}</WeatherValue>
+            </WeatherDetailItem>
+          </WeatherDetailGrid>
+        </WeatherDetailSection>
       </WeatherDetailContainer>
     </Modal>
   );
