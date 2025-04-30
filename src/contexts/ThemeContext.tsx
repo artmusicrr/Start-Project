@@ -12,7 +12,7 @@ interface ThemeContextType {
 }
 
 // Criando o contexto com valor inicial undefined
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 interface ThemeProviderProps {
   children: ReactNode;

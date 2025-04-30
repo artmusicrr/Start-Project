@@ -1,23 +1,13 @@
 import styled, { keyframes } from 'styled-components';
 
 const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 `;
 
 const slideIn = keyframes`
-  from {
-    transform: translateY(-30px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  from { transform: translateY(-30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 `;
 
 export const ModalOverlay = styled.div`
@@ -58,10 +48,7 @@ export const ModalHeader = styled.div`
   h2 {
     margin: 0;
     font-size: 1.5rem;
-    color: ${props =>
-      props.theme.isDark
-        ? props.theme.tokens.colors.text.main
-        : props.theme.tokens.colors.text.main};
+    color: ${props => (props.theme.isDark ? '#DDE4F0' : props.theme.tokens.colors.text.main)};
   }
 `;
 
@@ -80,8 +67,7 @@ export const CloseButton = styled.button`
 
 export const ModalBody = styled.div`
   padding: 20px;
-  color: ${props =>
-    props.theme.isDark ? props.theme.tokens.colors.text.main : props.theme.tokens.colors.text.main};
+  color: ${props => (props.theme.isDark ? '#DDE4F0' : props.theme.tokens.colors.text.main)};
   font-size: 1rem;
   line-height: 1.5;
 `;
