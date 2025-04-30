@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
+import { MainLayoutProps } from './types';
 import {
   LayoutContainer,
   Header,
@@ -12,10 +13,6 @@ import {
   MenuIcon,
   ThemeToggle,
 } from './styled';
-
-interface MainLayoutProps {
-  children: React.ReactNode;
-}
 
 export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const [menuOpen, setMenuOpen] = useState(false);

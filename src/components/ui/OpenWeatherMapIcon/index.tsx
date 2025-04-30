@@ -1,16 +1,11 @@
 import React from 'react';
+import { WeatherIconProps } from './types';
 
 // Função para obter o ícone do clima a partir do código do OpenWeatherMap
 export const getWeatherIconUrl = (iconCode: string): string => {
   // Constrói a URL do ícone usando HTTPS para evitar problemas de mixed content
   return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 };
-
-interface WeatherIconProps {
-  weatherId: number;
-  iconCode: string;
-  size?: number;
-}
 
 // Componente para exibir o ícone do clima
 const OpenWeatherMapIcon: React.FC<WeatherIconProps> = ({ weatherId, iconCode, size = 64 }) => {

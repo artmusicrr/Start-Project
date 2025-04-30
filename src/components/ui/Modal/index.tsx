@@ -1,4 +1,5 @@
 import React from 'react';
+import { ModalProps } from './types';
 import {
   ModalOverlay,
   ModalContainer,
@@ -7,14 +8,6 @@ import {
   ModalFooter,
   CloseButton,
 } from './styled';
-
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  title: string;
-  children: React.ReactNode;
-  footer?: React.ReactNode;
-}
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, footer }) => {
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {

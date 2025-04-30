@@ -1,15 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-
-// Definindo os tipos para as preferências da aplicação
-interface AppPreferences {
-  fontSize: 'small' | 'medium' | 'large';
-}
-
-// Definindo o tipo para o contexto
-interface AppContextType {
-  preferences: AppPreferences;
-  setFontSize: (size: 'small' | 'medium' | 'large') => void;
-}
+import { AppPreferences, AppContextType } from './types';
 
 // Criando o contexto com um valor inicial
 const AppContext = createContext<AppContextType | undefined>(undefined);
