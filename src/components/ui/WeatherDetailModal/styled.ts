@@ -110,3 +110,104 @@ export const WeatherValue = styled.div`
   word-break: break-word;
   text-align: center;
 `;
+
+// Componentes para exibir o range de temperaturas
+export const TemperatureRangeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 1rem 0 0.5rem;
+  background-color: ${props =>
+    props.theme.isDark ? 'rgba(30, 30, 40, 0.3)' : 'rgba(0, 0, 0, 0.02)'};
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: ${props =>
+    props.theme.isDark ? '0 2px 5px rgba(0, 0, 0, 0.2)' : '0 2px 5px rgba(0, 0, 0, 0.05)'};
+  border: 1px solid
+    ${props => (props.theme.isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)')};
+`;
+
+export const HourlyTempGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 8px;
+  width: 100%;
+  overflow-x: auto;
+  padding: 8px 0;
+  margin: 0 auto;
+  max-width: 100%;
+  scrollbar-width: thin;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Estilização para scrollbar personalizada */
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: ${props =>
+      props.theme.isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)'};
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${props =>
+      props.theme.isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)'};
+    border-radius: 3px;
+  }
+`;
+
+export const HourlyTemp = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 4px;
+  min-width: 60px;
+  position: relative;
+  height: 100px;
+
+  &:hover {
+    background-color: ${props =>
+      props.theme.isDark ? 'rgba(50, 50, 80, 0.2)' : 'rgba(0, 0, 0, 0.05)'};
+    border-radius: 6px;
+  }
+
+  /* Linha separadora vertical */
+  &:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -4px;
+    top: 25%;
+    height: 50%;
+    width: 1px;
+    background-color: ${props =>
+      props.theme.isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'};
+  }
+`;
+
+export const TimeLabel = styled.div`
+  font-size: 0.75rem;
+  color: ${props => (props.theme.isDark ? '#DDE4F0' : 'rgba(0, 0, 0, 0.6)')};
+  margin-bottom: 6px;
+  text-align: center;
+  opacity: 0.8;
+  font-weight: 500;
+`;
+
+export const TempValue = styled.div`
+  font-size: 1rem;
+  font-weight: 600;
+  color: ${props => (props.theme.isDark ? '#DDE4F0' : props.theme.tokens.colors.text.main)};
+  text-align: center;
+
+  /* Pequena animação ao passar o mouse */
+  transition: transform 0.2s ease;
+
+  ${HourlyTemp}:hover & {
+    transform: scale(1.1);
+  }
+`;

@@ -31,4 +31,5 @@ export interface WeatherDetailModalProps {
   isOpen: boolean;
   onClose: () => void;
   weatherData: WeatherDetail | null;
+  allDayData?: WeatherDetail[]; // Dados de todas as previsões do dia (de 3 em 3 horas)
 }

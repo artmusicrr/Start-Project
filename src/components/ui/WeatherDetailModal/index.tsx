@@ -9,6 +9,11 @@ import {
   WeatherValue,
   WeatherDetailSection,
   SectionTitle,
+  TemperatureRangeContainer,
+  HourlyTempGrid,
+  HourlyTemp,
+  TimeLabel,
+  TempValue,
 } from './styled';
 import { Icon } from '@iconify/react';
 import { useTheme } from '../../../contexts/ThemeContext';
@@ -19,6 +24,7 @@ const WeatherDetailModal: React.FC<WeatherDetailModalProps> = ({
   isOpen,
   onClose,
   weatherData,
+  allDayData = [],
 }) => {
   // Obtém o tema atual do contexto usando o hook useTheme
   const { themeMode } = useTheme();
@@ -53,18 +59,66 @@ const WeatherDetailModal: React.FC<WeatherDetailModalProps> = ({
     return `${Math.round(pop * 100)}%`;
   };
 
-  // Estilo para texto no modo escuro
+  // Função para gerar uma cor baseada na temperatura
+  const getTemperatureColor = (temp: number, minTemp: number, maxTemp: number): string => {
+    // Converter para uma escala de 0-1
+    const range = maxTemp - minTemp;
+    const normalizedTemp = range === 0 ? 0.5 : (temp - minTemp) / range;
+
+    // Cores: azul (frio) -> ciano -> verde -> amarelo -> laranja -> vermelho (quente)
+    if (normalizedTemp < 0.2) {
+      return '#3498db'; // Azul (frio)
+    } else if (normalizedTemp < 0.4) {
+      return '#1abc9c'; // Ciano
+    } else if (normalizedTemp < 0.6) {
+      return '#2ecc71'; // Verde
+    } else if (normalizedTemp < 0.75) {
+      return '#f1c40f'; // Amarelo
+    } else if (normalizedTemp < 0.9) {
+      return '#e67e22'; // Laranja
+    } else {
+      return '#e74c3c'; // Vermelho (quente)
+    }
+  };
+
+  // Função para extrair apenas as previsões do mesmo dia
+  const getDayForecasts = () => {
+    if (!allDayData || allDayData.length === 0) {
+      // Se não recebemos dados do dia, retorna um array apenas com o weatherData atual
+      return weatherData ? [weatherData] : [];
+    }
+
+    // Extrair apenas a data (sem hora) do dt_txt
+    const currentDate = weatherData?.dt_txt.split(' ')[0];
+
+    // Filtrar apenas as previsões do mesmo dia
+    return allDayData.filter(item => {
+      const itemDate = item.dt_txt.split(' ')[0];
+      return itemDate === currentDate;
+    });
+  };
+
+  // Obter previsões do mesmo dia
+  const dayForecasts = getDayForecasts();
+
+  // Formatar hora para exibição mais amigável
+  const formatHour = (dtTxt: string) => {
+    const date = new Date(dtTxt);
+    return date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+  };
+
+  // Estilo para textos no modo escuro
   const darkTextStyle = isDarkMode ? { color: '#DDE4F0' } : {};
 
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={`Previsão do Tempo - ${formatDateTime(weatherData.dt_txt)}`}
+      title={`Detalhes do Tempo - ${formatDateTime(weatherData.dt_txt)}`}
     >
       <WeatherDetailContainer>
         <WeatherIconContainer>
-          <ColorfulWeatherIcon weatherId={weatherData.weather[0].id} isDay={isDay} size={60} />
+          <ColorfulWeatherIcon weatherId={weatherData.weather[0].id} isDay={isDay} size={70} />
           <p style={darkTextStyle}>{weatherData.weather[0].description}</p>
         </WeatherIconContainer>
 
@@ -98,6 +152,56 @@ const WeatherDetailModal: React.FC<WeatherDetailModalProps> = ({
               </WeatherValue>
             </WeatherDetailItem>
           </WeatherDetailGrid>
+
+          {/* Range de temperaturas ao longo do dia */}
+          {dayForecasts.length > 1 && (
+            <TemperatureRangeContainer>
+              <WeatherLabel
+                style={{ ...darkTextStyle, justifyContent: 'center', marginBottom: '8px' }}
+              >
+                <Icon icon="mdi:chart-line" width="20" height="20" style={{ marginRight: '5px' }} />
+                Variação de Temperatura (3h em 3h)
+              </WeatherLabel>
+              <HourlyTempGrid>
+                {dayForecasts.map(forecast => {
+                  // Cálculo para o gráfico de temperaturas
+                  const temps = dayForecasts.map(f => f.main.temp);
+                  const minTemp = Math.min(...temps);
+                  const maxTemp = Math.max(...temps);
+                  const range = maxTemp - minTemp;
+
+                  // Calcular a altura da barra com base na temperatura
+                  // Normaliza para valores entre 20% e 100%
+                  const heightPercentage =
+                    range === 0 ? 50 : 20 + ((forecast.main.temp - minTemp) / range) * 80;
+
+                  // Cor com base na temperatura
+                  const tempColor = getTemperatureColor(forecast.main.temp, minTemp, maxTemp);
+
+                  return (
+                    <HourlyTemp key={forecast.dt}>
+                      <TimeLabel style={darkTextStyle}>{formatHour(forecast.dt_txt)}</TimeLabel>
+                      <div
+                        style={{
+                          width: '8px',
+                          height: `${heightPercentage}%`,
+                          minHeight: '10px',
+                          background: tempColor,
+                          borderRadius: '4px',
+                          margin: '4px 0',
+                          boxShadow: `0 0 5px ${tempColor}70`,
+                          transition: 'all 0.3s ease',
+                        }}
+                      />
+                      <TempValue style={darkTextStyle}>
+                        {Math.round(forecast.main.temp)}°C
+                      </TempValue>
+                    </HourlyTemp>
+                  );
+                })}
+              </HourlyTempGrid>
+            </TemperatureRangeContainer>
+          )}
         </WeatherDetailSection>
 
         <WeatherDetailSection>
@@ -119,7 +223,7 @@ const WeatherDetailModal: React.FC<WeatherDetailModalProps> = ({
 
             <WeatherDetailItem>
               <WeatherLabel style={darkTextStyle}>
-                <Icon icon="mdi:cloud-percent" width="20" height="20" /> Cobertura de Nuvens
+                <Icon icon="mdi:weather-cloudy" width="20" height="20" /> Nebulosidade
               </WeatherLabel>
               <WeatherValue style={darkTextStyle}>{weatherData.clouds.all}%</WeatherValue>
             </WeatherDetailItem>
@@ -133,7 +237,9 @@ const WeatherDetailModal: React.FC<WeatherDetailModalProps> = ({
               <WeatherLabel style={darkTextStyle}>
                 <Icon icon="mdi:weather-windy" width="20" height="20" /> Velocidade
               </WeatherLabel>
-              <WeatherValue style={darkTextStyle}>{weatherData.wind.speed} m/s</WeatherValue>
+              <WeatherValue style={darkTextStyle}>
+                {weatherData.wind.speed.toFixed(1)} m/s
+              </WeatherValue>
             </WeatherDetailItem>
 
             <WeatherDetailItem>
@@ -141,27 +247,18 @@ const WeatherDetailModal: React.FC<WeatherDetailModalProps> = ({
                 <Icon icon="mdi:compass" width="20" height="20" /> Direção
               </WeatherLabel>
               <WeatherValue style={darkTextStyle}>
-                {weatherData.wind.deg}° ({getWindDirection(weatherData.wind.deg)})
+                {getWindDirection(weatherData.wind.deg)} ({weatherData.wind.deg}°)
               </WeatherValue>
             </WeatherDetailItem>
 
-            {weatherData.wind.gust ? (
-              <WeatherDetailItem>
-                <WeatherLabel style={darkTextStyle}>
-                  <Icon icon="mdi:weather-windy-variant" width="20" height="20" /> Rajadas
-                </WeatherLabel>
-                <WeatherValue style={darkTextStyle}>{weatherData.wind.gust} m/s</WeatherValue>
-              </WeatherDetailItem>
-            ) : (
-              <WeatherDetailItem>
-                <WeatherLabel style={darkTextStyle}>
-                  <Icon icon="mdi:eye" width="20" height="20" /> Visibilidade
-                </WeatherLabel>
-                <WeatherValue style={darkTextStyle}>
-                  {weatherData.visibility / 1000} km
-                </WeatherValue>
-              </WeatherDetailItem>
-            )}
+            <WeatherDetailItem>
+              <WeatherLabel style={darkTextStyle}>
+                <Icon icon="mdi:eye-outline" width="20" height="20" /> Visibilidade
+              </WeatherLabel>
+              <WeatherValue style={darkTextStyle}>
+                {(weatherData.visibility / 1000).toFixed(1)} km
+              </WeatherValue>
+            </WeatherDetailItem>
           </WeatherDetailGrid>
         </WeatherDetailSection>
 
@@ -170,7 +267,7 @@ const WeatherDetailModal: React.FC<WeatherDetailModalProps> = ({
           <WeatherDetailGrid>
             <WeatherDetailItem>
               <WeatherLabel style={darkTextStyle}>
-                <Icon icon="mdi:weather-pouring" width="20" height="20" /> Probabilidade de Chuva
+                <Icon icon="mdi:weather-pouring" width="20" height="20" /> Probabilidade
               </WeatherLabel>
               <WeatherValue style={darkTextStyle}>
                 {formatRainProbability(weatherData.pop)}
