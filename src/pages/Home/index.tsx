@@ -32,6 +32,20 @@ const Home: React.FC = () => {
     setIsModalOpen(true);
   };
 
+  // Função para obter todas as previsões do mesmo dia
+  const getDayForecasts = (selectedItem: WeatherItem | null) => {
+    if (!weather || !selectedItem) return [];
+
+    // Extrair apenas a data (sem hora) do dt_txt
+    const selectedDate = selectedItem.dt_txt.split(' ')[0];
+
+    // Filtrar apenas as previsões do mesmo dia
+    return weather.list.filter(item => {
+      const itemDate = item.dt_txt.split(' ')[0];
+      return itemDate === selectedDate;
+    });
+  };
+
   // Função para fechar o modal
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -173,6 +187,7 @@ const Home: React.FC = () => {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         weatherData={selectedWeather}
+        allDayData={getDayForecasts(selectedWeather)}
       />
     </HomeContainer>
   );
