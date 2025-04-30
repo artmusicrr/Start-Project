@@ -40,7 +40,7 @@ export const ModalContainer = styled.div`
   border-radius: 10px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
   width: 90%;
-  max-width: 600px;
+  max-width: 900px;
   max-height: 90vh;
   overflow-y: auto;
   animation: ${slideIn} 0.3s ease-out;
