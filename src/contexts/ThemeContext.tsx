@@ -1,22 +1,14 @@
-import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 import lightTheme from '../globals/themes/light';
 import darkTheme from '../globals/themes/dark';
+import { ThemeContextType, ThemeProviderProps } from './types';
 
 // Tipos para o tema
 type ThemeMode = 'light' | 'dark';
 
-interface ThemeContextType {
-  themeMode: ThemeMode;
-  toggleTheme: () => void;
-}
-
 // Criando o contexto com valor inicial undefined
 export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
-
-interface ThemeProviderProps {
-  children: ReactNode;
-}
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   // Estado para o tema com persistência no localStorage

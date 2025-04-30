@@ -3,42 +3,7 @@ import { HomeContainer, WeatherCardsList, WeatherCard, WeatherIcon, WeatherInfo 
 import { Icon } from '@iconify/react';
 import WeatherDetailModal from '../../components/ui/WeatherDetailModal';
 import OpenWeatherMapIcon from '../../components/ui/OpenWeatherMapIcon';
-
-interface WeatherItem {
-  dt: number;
-  dt_txt: string;
-  main: {
-    temp: number;
-    feels_like: number;
-    temp_min: number;
-    temp_max: number;
-    pressure: number;
-    humidity: number;
-  };
-  weather: {
-    id: number;
-    main: string;
-    description: string;
-    icon: string;
-  }[];
-  clouds: {
-    all: number;
-  };
-  wind: {
-    speed: number;
-    deg: number;
-    gust?: number;
-  };
-  visibility: number;
-  pop: number; // Probabilidade de precipitação
-}
-
-interface WeatherData {
-  city?: {
-    name: string;
-  };
-  list: WeatherItem[];
-}
+import { WeatherItem, WeatherData } from './types';
 
 const Home: React.FC = () => {
   const [location, setLocation] = useState<{ lat: number; lon: number } | null>(null);
