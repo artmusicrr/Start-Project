@@ -11,6 +11,7 @@ import {
   SectionTitle,
 } from './styled';
 import { Icon } from '@iconify/react';
+import { useTheme } from '../../../contexts/ThemeContext';
 
 interface WeatherDetail {
   dt: number;
@@ -52,6 +53,10 @@ const WeatherDetailModal: React.FC<WeatherDetailModalProps> = ({
   onClose,
   weatherData,
 }) => {
+  // Obtém o tema atual do contexto usando o hook useTheme
+  const { themeMode } = useTheme();
+  const isDarkMode = themeMode === 'dark';
+
   if (!weatherData) return null;
 
   // Formatação da data e hora
@@ -81,6 +86,9 @@ const WeatherDetailModal: React.FC<WeatherDetailModalProps> = ({
     return `${Math.round(pop * 100)}%`;
   };
 
+  // Estilo para texto no modo escuro
+  const darkTextStyle = isDarkMode ? { color: '#DDE4F0' } : {};
+
   return (
     <Modal
       isOpen={isOpen}
@@ -94,31 +102,35 @@ const WeatherDetailModal: React.FC<WeatherDetailModalProps> = ({
             alt={weatherData.weather[0].description}
             style={{ width: '100px', height: '100px' }}
           />
-          <p>{weatherData.weather[0].description}</p>
+          <p style={darkTextStyle}>{weatherData.weather[0].description}</p>
         </WeatherIconContainer>
 
         <WeatherDetailSection>
-          <SectionTitle>Temperatura</SectionTitle>
+          <SectionTitle style={darkTextStyle}>Temperatura</SectionTitle>
           <WeatherDetailGrid>
             <WeatherDetailItem>
-              <WeatherLabel>
+              <WeatherLabel style={darkTextStyle}>
                 <Icon icon="mdi:thermometer" width="20" height="20" /> Atual
               </WeatherLabel>
-              <WeatherValue>{weatherData.main.temp.toFixed(1)}°C</WeatherValue>
+              <WeatherValue style={darkTextStyle}>
+                {weatherData.main.temp.toFixed(1)}°C
+              </WeatherValue>
             </WeatherDetailItem>
 
             <WeatherDetailItem>
-              <WeatherLabel>
+              <WeatherLabel style={darkTextStyle}>
                 <Icon icon="mdi:thermometer-lines" width="20" height="20" /> Sensação Térmica
               </WeatherLabel>
-              <WeatherValue>{weatherData.main.feels_like.toFixed(1)}°C</WeatherValue>
+              <WeatherValue style={darkTextStyle}>
+                {weatherData.main.feels_like.toFixed(1)}°C
+              </WeatherValue>
             </WeatherDetailItem>
 
             <WeatherDetailItem>
-              <WeatherLabel>
+              <WeatherLabel style={darkTextStyle}>
                 <Icon icon="mdi:thermometer-low" width="20" height="20" /> Mínima/Máxima
               </WeatherLabel>
-              <WeatherValue>
+              <WeatherValue style={darkTextStyle}>
                 {weatherData.main.temp_min.toFixed(1)}°C / {weatherData.main.temp_max.toFixed(1)}°C
               </WeatherValue>
             </WeatherDetailItem>
@@ -126,76 +138,80 @@ const WeatherDetailModal: React.FC<WeatherDetailModalProps> = ({
         </WeatherDetailSection>
 
         <WeatherDetailSection>
-          <SectionTitle>Condições Atmosféricas</SectionTitle>
+          <SectionTitle style={darkTextStyle}>Condições Atmosféricas</SectionTitle>
           <WeatherDetailGrid>
             <WeatherDetailItem>
-              <WeatherLabel>
+              <WeatherLabel style={darkTextStyle}>
                 <Icon icon="mdi:water-percent" width="20" height="20" /> Umidade
               </WeatherLabel>
-              <WeatherValue>{weatherData.main.humidity}%</WeatherValue>
+              <WeatherValue style={darkTextStyle}>{weatherData.main.humidity}%</WeatherValue>
             </WeatherDetailItem>
 
             <WeatherDetailItem>
-              <WeatherLabel>
+              <WeatherLabel style={darkTextStyle}>
                 <Icon icon="mdi:gauge" width="20" height="20" /> Pressão
               </WeatherLabel>
-              <WeatherValue>{weatherData.main.pressure} hPa</WeatherValue>
+              <WeatherValue style={darkTextStyle}>{weatherData.main.pressure} hPa</WeatherValue>
             </WeatherDetailItem>
 
             <WeatherDetailItem>
-              <WeatherLabel>
+              <WeatherLabel style={darkTextStyle}>
                 <Icon icon="mdi:cloud-percent" width="20" height="20" /> Cobertura de Nuvens
               </WeatherLabel>
-              <WeatherValue>{weatherData.clouds.all}%</WeatherValue>
+              <WeatherValue style={darkTextStyle}>{weatherData.clouds.all}%</WeatherValue>
             </WeatherDetailItem>
           </WeatherDetailGrid>
         </WeatherDetailSection>
 
         <WeatherDetailSection>
-          <SectionTitle>Vento e Visibilidade</SectionTitle>
+          <SectionTitle style={darkTextStyle}>Vento e Visibilidade</SectionTitle>
           <WeatherDetailGrid>
             <WeatherDetailItem>
-              <WeatherLabel>
+              <WeatherLabel style={darkTextStyle}>
                 <Icon icon="mdi:weather-windy" width="20" height="20" /> Velocidade
               </WeatherLabel>
-              <WeatherValue>{weatherData.wind.speed} m/s</WeatherValue>
+              <WeatherValue style={darkTextStyle}>{weatherData.wind.speed} m/s</WeatherValue>
             </WeatherDetailItem>
 
             <WeatherDetailItem>
-              <WeatherLabel>
+              <WeatherLabel style={darkTextStyle}>
                 <Icon icon="mdi:compass" width="20" height="20" /> Direção
               </WeatherLabel>
-              <WeatherValue>
+              <WeatherValue style={darkTextStyle}>
                 {weatherData.wind.deg}° ({getWindDirection(weatherData.wind.deg)})
               </WeatherValue>
             </WeatherDetailItem>
 
             {weatherData.wind.gust ? (
               <WeatherDetailItem>
-                <WeatherLabel>
+                <WeatherLabel style={darkTextStyle}>
                   <Icon icon="mdi:weather-windy-variant" width="20" height="20" /> Rajadas
                 </WeatherLabel>
-                <WeatherValue>{weatherData.wind.gust} m/s</WeatherValue>
+                <WeatherValue style={darkTextStyle}>{weatherData.wind.gust} m/s</WeatherValue>
               </WeatherDetailItem>
             ) : (
               <WeatherDetailItem>
-                <WeatherLabel>
+                <WeatherLabel style={darkTextStyle}>
                   <Icon icon="mdi:eye" width="20" height="20" /> Visibilidade
                 </WeatherLabel>
-                <WeatherValue>{weatherData.visibility / 1000} km</WeatherValue>
+                <WeatherValue style={darkTextStyle}>
+                  {weatherData.visibility / 1000} km
+                </WeatherValue>
               </WeatherDetailItem>
             )}
           </WeatherDetailGrid>
         </WeatherDetailSection>
 
         <WeatherDetailSection>
-          <SectionTitle>Precipitação</SectionTitle>
+          <SectionTitle style={darkTextStyle}>Precipitação</SectionTitle>
           <WeatherDetailGrid>
             <WeatherDetailItem>
-              <WeatherLabel>
+              <WeatherLabel style={darkTextStyle}>
                 <Icon icon="mdi:weather-pouring" width="20" height="20" /> Probabilidade de Chuva
               </WeatherLabel>
-              <WeatherValue>{formatRainProbability(weatherData.pop)}</WeatherValue>
+              <WeatherValue style={darkTextStyle}>
+                {formatRainProbability(weatherData.pop)}
+              </WeatherValue>
             </WeatherDetailItem>
           </WeatherDetailGrid>
         </WeatherDetailSection>

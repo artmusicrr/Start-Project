@@ -26,9 +26,7 @@ export const WeatherIconContainer = styled.div`
     text-transform: capitalize;
     margin: 0;
     color: ${props =>
-      props.theme.isDark
-        ? props.theme.tokens.colors.secondary_new.base.main
-        : props.theme.tokens.colors.primary_new.base.main};
+      props.theme.isDark ? '#DDE4F0' : props.theme.tokens.colors.primary_new.base.main};
   }
 `;
 
@@ -93,8 +91,7 @@ export const WeatherLabel = styled.div`
 export const WeatherValue = styled.div`
   font-size: 1rem;
   font-weight: 600;
-  color: ${props =>
-    props.theme.isDark ? props.theme.tokens.colors.text.main : props.theme.tokens.colors.text.main};
+  color: ${props => (props.theme.isDark ? '#DDE4F0' : props.theme.tokens.colors.text.main)};
   overflow-wrap: break-word;
   word-break: break-word;
 `;
