@@ -30,7 +30,7 @@ export const ModalContainer = styled.div`
   border-radius: 10px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
   width: 90%;
-  max-width: 900px;
+  max-width: 800px;
   max-height: 90vh;
   overflow-y: auto;
   animation: ${slideIn} 0.3s ease-out;
@@ -38,7 +38,7 @@ export const ModalContainer = styled.div`
 `;
 
 export const ModalHeader = styled.div`
-  padding: 20px;
+  padding: 15px 20px;
   border-bottom: 1px solid
     ${props => (props.theme.isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)')};
   display: flex;
@@ -66,10 +66,10 @@ export const CloseButton = styled.button`
 `;
 
 export const ModalBody = styled.div`
-  padding: 20px;
+  padding: 15px 20px;
   color: ${props => (props.theme.isDark ? '#DDE4F0' : props.theme.tokens.colors.text.main)};
-  font-size: 1rem;
-  line-height: 1.5;
+  font-size: 0.95rem;
+  line-height: 1.4;
 `;
 
 export const ModalFooter = styled.div`

@@ -72,12 +72,12 @@ export const WeatherCardsList = styled.ul`
   padding: 0;
   margin: 0;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1100px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
-  gap: 20px;
+  gap: 15px;
   position: relative;
   padding: 15px 5px;
 
@@ -97,10 +97,10 @@ export const WeatherCard = styled.li<WeatherCardProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 15px;
-  border-radius: 18px;
-  width: 180px;
-  min-height: 240px;
+  padding: 15px 12px;
+  border-radius: 16px;
+  width: 150px;
+  min-height: 200px;
   background-color: ${props => {
     const isDark = props.theme.isDark;
     const weatherId = props.weatherId || 0;
@@ -192,9 +192,9 @@ export const WeatherCard = styled.li<WeatherCardProps>`
 `;
 
 export const WeatherIcon = styled.div`
-  margin-bottom: 15px;
-  width: 80px;
-  height: 80px;
+  margin-bottom: 10px;
+  width: 65px;
+  height: 65px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -220,9 +220,9 @@ export const WeatherInfo = styled.div<WeatherInfoProps>`
   flex: 1;
 
   .day {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     text-transform: capitalize;
     color: ${props =>
       props.theme.isDark ? '#DDE4F0' : props.theme.tokens.colors.primary_new.base.dark};
@@ -237,7 +237,7 @@ export const WeatherInfo = styled.div<WeatherInfoProps>`
     gap: 8px;
 
     .temp {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       font-weight: bold;
       background: ${props =>
         props.theme.isDark
@@ -253,15 +253,15 @@ export const WeatherInfo = styled.div<WeatherInfoProps>`
     }
 
     .condition {
-      font-size: 1rem;
+      font-size: 0.85rem;
       font-weight: 500;
       color: ${props =>
         props.theme.isDark
           ? props.theme.tokens.colors.text.main
           : props.theme.tokens.colors.text.secondary};
       text-transform: capitalize;
-      padding: 4px 10px;
-      border-radius: 20px;
+      padding: 3px 8px;
+      border-radius: 16px;
       text-align: center;
       width: 100%;
       margin-top: 2px;
