@@ -12,6 +12,7 @@ import {
 } from './styled';
 import { Icon } from '@iconify/react';
 import { useTheme } from '../../../contexts/ThemeContext';
+import ColorfulWeatherIcon from '../ColorfulWeatherIcon';
 import { WeatherDetailModalProps } from './types';
 
 const WeatherDetailModal: React.FC<WeatherDetailModalProps> = ({
@@ -37,8 +38,8 @@ const WeatherDetailModal: React.FC<WeatherDetailModalProps> = ({
     });
   };
 
-  // Base URL para os ícones de clima do OpenWeatherMap (usando HTTPS)
-  const weatherIconBaseUrl = 'https://openweathermap.org/img/wn/';
+  // Verificar se é dia ou noite baseado no código do ícone
+  const isDay = weatherData.weather[0].icon.includes('d');
 
   // Converte direção do vento em graus para texto
   const getWindDirection = (deg: number): string => {
@@ -63,11 +64,7 @@ const WeatherDetailModal: React.FC<WeatherDetailModalProps> = ({
     >
       <WeatherDetailContainer>
         <WeatherIconContainer>
-          <img
-            src={`${weatherIconBaseUrl}${weatherData.weather[0].icon}@2x.png`}
-            alt={weatherData.weather[0].description}
-            style={{ width: '100px', height: '100px' }}
-          />
+          <ColorfulWeatherIcon weatherId={weatherData.weather[0].id} isDay={isDay} size={60} />
           <p style={darkTextStyle}>{weatherData.weather[0].description}</p>
         </WeatherIconContainer>
 

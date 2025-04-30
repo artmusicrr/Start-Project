@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { HomeContainer, WeatherCardsList, WeatherCard, WeatherIcon, WeatherInfo } from './styled';
 import { Icon } from '@iconify/react';
 import WeatherDetailModal from '../../components/ui/WeatherDetailModal';
-import OpenWeatherMapIcon from '../../components/ui/OpenWeatherMapIcon';
+import ColorfulWeatherIcon from '../../components/ui/ColorfulWeatherIcon';
 import { WeatherItem, WeatherData } from './types';
 
 const Home: React.FC = () => {
@@ -137,10 +137,10 @@ const Home: React.FC = () => {
                   style={{ cursor: 'pointer' }}
                 >
                   <WeatherIcon>
-                    <OpenWeatherMapIcon
+                    <ColorfulWeatherIcon
                       weatherId={item.weather[0].id}
-                      iconCode={item.weather[0].icon}
-                      size={80}
+                      isDay={!item.weather[0].icon.includes('n')}
+                      size={65}
                     />
                   </WeatherIcon>
                   <WeatherInfo>
