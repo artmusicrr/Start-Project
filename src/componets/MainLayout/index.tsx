@@ -40,12 +40,12 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           <NavList open={menuOpen}>
             <NavItem>
               <Link to="/" onClick={() => setMenuOpen(false)}>
-                Página Inicial
+                Previsão do Tempo
               </Link>
             </NavItem>
             <NavItem>
               <Link to="/pageone" onClick={() => setMenuOpen(false)}>
-                Página Um
+                Cotação de Moedas
               </Link>
             </NavItem>
             <NavItem>
