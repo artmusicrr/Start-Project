@@ -44,13 +44,13 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
               </Link>
             </NavItem>
             <NavItem>
-              <Link to="/pageone" onClick={() => setMenuOpen(false)}>
+              <Link to="/dollar-quote" onClick={() => setMenuOpen(false)}>
                 Cotação de Moedas
               </Link>
             </NavItem>
             <NavItem>
-              <Link to="/pagetwo" onClick={() => setMenuOpen(false)}>
-                Página Dois
+              <Link to="/page-news" onClick={() => setMenuOpen(false)}>
+                Notícias
               </Link>
             </NavItem>
 

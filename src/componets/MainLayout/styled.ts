@@ -186,12 +186,14 @@ export const NavItem = styled.li`
 `;
 
 export const Content = styled.main`
-  flex: 1;
-  //padding: 2rem 1rem;
+  flex: 1 1 auto;
   max-width: 1300px;
   width: 100%;
   margin: 0 auto;
   margin-top: 80px; /* Compensar a altura do header fixo */
+  min-height: calc(100vh - 80px);
+  overflow-y: auto;
+  box-sizing: border-box;
 
   @media (max-width: 768px) {
     padding: 1.5rem 0.75rem;
