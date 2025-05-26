@@ -45,7 +45,10 @@ export const Nav = styled.nav`
   align-items: center;
 `;
 
-export const ThemeToggle = styled.button<{ isDarkMode: boolean }>`
+// Filtrando a prop isDarkMode para evitar que seja passada para o elemento DOM
+export const ThemeToggle = styled.button.withConfig({
+  shouldForwardProp: prop => prop !== 'isDarkMode',
+})<{ isDarkMode: boolean }>`
   background: none;
   border: none;
   width: 40px;

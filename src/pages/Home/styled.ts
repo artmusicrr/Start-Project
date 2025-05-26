@@ -93,7 +93,10 @@ interface WeatherCardProps {
   onClick?: () => void;
 }
 
-export const WeatherCard = styled.li<WeatherCardProps>`
+// Filtrando as props personalizadas para evitar que sejam passadas para o elemento DOM
+export const WeatherCard = styled.li.withConfig({
+  shouldForwardProp: prop => !['isNight', 'weatherId'].includes(prop),
+})<WeatherCardProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
